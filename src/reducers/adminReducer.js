@@ -6,7 +6,7 @@ export default function(
       commissionPct: 0.01,
       surcharge: 1,
       minimalCommission: 1,
-      margin: 1
+      margin: 0.01
     }
   },
   action

@@ -24,9 +24,14 @@ class CurrencyPopup extends React.Component {
       " " +
       state.popupStatus.country;
     return (
-      <Form className="col-sm-6">
-        <h4>{popupHeader}</h4>
+      <Form bordered className="col-sm-6">
         <FormGroup row>
+          <h4 xs={9}>{popupHeader}</h4>
+          <Button xs={3} className="ml-auto" onClick={this.props.closePopup}>
+            X
+          </Button>
+        </FormGroup>
+        <FormGroup row style={{ margin: "5px" }}>
           <Label for="amountToBuy">Amount to buy:</Label>
           <Input
             type="number"

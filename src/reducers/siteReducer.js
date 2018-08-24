@@ -4,7 +4,7 @@ import {
   UPDATE_BUY_SELL_AMOUNT
 } from "../actions/index";
 
-export default function(state = { ...state, popupStatus: false }, action) {
+export default function(state = { popupStatus: false }, action) {
   switch (action.type) {
     case CLOSE_POPUP:
       return (state = { ...state, popupStatus: action.payload, amountUsd: 0 });

@@ -1,28 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
-import {
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormText,
-  Col
-} from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
 
 class AdminPanel extends Component {
   constructor() {
     super();
     this.state = {
-      commission: "",
-      surcharge: "",
-      margin: "",
-      minimalCommission: ""
+      commissionPct: this.props ? this.props.admin.rates.commissionPct : 0,
+      surcharge: this.props ? this.props.admin.rates.surcharge : 0,
+      margin: this.props ? this.props.admin.rates.margin : 0,
+      minimalCommission: this.props
+        ? this.props.admin.rates.minimalCommission
+        : 0
     };
   }
   render() {
-    console.log("admin props", this.props.admin);
+    const rates = this.props.admin.rates;
+    console.log("admin props", this.props);
     return (
       <Form
         style={{ margin: "20px" }}
@@ -40,8 +35,10 @@ class AdminPanel extends Component {
               type="number"
               name="commission"
               id="commission"
-              placeholder="0.00"
-              onChange={e => this.setState({ commission: e.target.value })}
+              placeholder={rates.commissionPct * 100}
+              onChange={e =>
+                this.setState({ commissionPct: e.target.value / 100 })
+              }
             />
           </Col>
           <Label sm={2}> %</Label>
@@ -55,11 +52,13 @@ class AdminPanel extends Component {
               type="number"
               name="surcharge"
               id="surcharge"
-              placeholder="0.00"
-              onChange={e => this.setState({ surcharge: e.target.value })}
+              placeholder={rates.surcharge}
+              onChange={e =>
+                this.setState({ surcharge: parseInt(e.target.value, 10) })
+              }
             />
           </Col>
-          <Label sm={2}> %</Label>
+          <Label sm={2}> USD</Label>
         </FormGroup>
         <FormGroup row>
           <Label for="Minimal Commission" sm={2}>
@@ -70,13 +69,13 @@ class AdminPanel extends Component {
               type="number"
               name="minimalCommission"
               id="minimalCommission"
-              placeholder="0.00"
+              placeholder={rates.minimalCommission}
               onChange={e =>
-                this.setState({ minimalCommission: e.target.value })
+                this.setState({ minimalCommission: parseInt(e.target.value, 10) })
               }
             />
           </Col>
-          <Label sm={2}> %</Label>
+          <Label sm={2}> USD</Label>
         </FormGroup>
         <FormGroup row>
           <Label for="margin" sm={2}>
@@ -87,8 +86,8 @@ class AdminPanel extends Component {
               type="number"
               name="margin"
               id="margin"
-              placeholder="0.00"
-              onChange={e => this.setState({ margin: e.target.value })}
+              placeholder={rates.margin * 100}
+              onChange={e => this.setState({ margin: e.target.value / 100 })}
             />
           </Col>
           <Label sm={2}> %</Label>

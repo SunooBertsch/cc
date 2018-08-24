@@ -80,7 +80,11 @@ class CurrencyValues extends Component {
         </div>
         <div className="row">
           <div className="col-sm-3" />
-          {this.props.site.popupStatus.popupOpen ? <BuySellPopup /> : ""}
+          {this.props.site.popupStatus.popupOpen ? (
+            <BuySellPopup style={{ border: "solid grey 1px" }} />
+          ) : (
+            ""
+          )}
           <div className="col-sm-3" />
         </div>
       </div>
@@ -88,10 +92,11 @@ class CurrencyValues extends Component {
   }
 }
 
-function mapStateToProps({ currencies, site }) {
+function mapStateToProps({ currencies, site, admin }) {
   return {
     currencies,
-    site
+    site,
+    admin
   };
 }
 

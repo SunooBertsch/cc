@@ -4,7 +4,7 @@ import CurrencyValuesTable from "./CurrencyValuesTable";
 import Header from "./Header";
 import AdminPanel from "./AdminPanel";
 import * as actions from "../actions";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
   componentDidMount() {
@@ -20,7 +20,7 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path="/" component={CurrencyValuesTable} />
-            <Route exact path="/admin" component={AdminPanel} />
+            <Route path="/admin" component={AdminPanel} />
           </div>
         </Router>
       </div>
