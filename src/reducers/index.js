@@ -6,5 +6,5 @@ import adminReducer from "./adminReducer";
 export default combineReducers({
   currencies: currenciesReducer,
   site: siteReducer,
-  rates: adminReducer
+  admin: adminReducer
 });

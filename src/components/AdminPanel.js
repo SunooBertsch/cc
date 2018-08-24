@@ -23,9 +23,14 @@ class AdminPanel extends Component {
   }
   render() {
     console.log("admin props", this.props.admin);
-    console.log(this.state);
     return (
-      <Form style={{ margin: "20px" }}>
+      <Form
+        style={{ margin: "20px" }}
+        onSubmit={e => {
+          e.preventDefault();
+          this.props.updateRates(this.state);
+          e.target.reset()
+        }}>
         <FormGroup row>
           <Label for="commission" sm={2}>
             Commission:
@@ -88,7 +93,7 @@ class AdminPanel extends Component {
           </Col>
           <Label sm={2}> %</Label>
         </FormGroup>
-        <Button onSubmit={this.props.updateRates}>Update</Button>
+        <Button>Update</Button>
       </Form>
     );
   }

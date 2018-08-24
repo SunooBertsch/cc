@@ -33,7 +33,7 @@ export const selectCell = data => async dispatch => {
 };
 
 export const updateRates = data => async dispatch => {
-  console.log("rates updated");
+  console.log("rates updated", data);
   dispatch({
     type: UPDATE_RATES,
     payload: data

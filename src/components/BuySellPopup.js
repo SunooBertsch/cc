@@ -36,9 +36,7 @@ class CurrencyPopup extends React.Component {
           </Label>
           <Label sm={4}>2.00</Label>
         </FormGroup>
-        <Button color="primary" onSubmit={this.props.selectCell}>
-          Submit
-        </Button>
+        <Button color="primary">Submit</Button>
         <Button color="danger" onClick={this.props.closePopup}>
           Cancel
         </Button>
