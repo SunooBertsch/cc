@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 import config from "../config";
 import { Table } from "reactstrap";
+import CurrencyPopup from "./CurrencyPopup";
 
 class CurrencyValues extends Component {
   constructor(props) {
@@ -13,15 +14,22 @@ class CurrencyValues extends Component {
       transactionType: ""
     };
     this.createTable = this.createTable.bind(this);
-    this.selectCell = this.selectCell.bind(this);
+    this.togglePopup = this.togglePopup.bind(this);
   }
 
-  selectCell(id, type) {
-    this.setState({
-      popupOpen: true,
-      activeId: id,
-      transactionType: type
-    });
+  togglePopup(id, type) {
+    if (this.state.activeId === id && this.state.transactionType === type) {
+      this.setState({
+        popupOpen: false,
+        activeId: null,
+        transactionType: ""
+      });
+    } else
+      this.setState({
+        popupOpen: true,
+        activeId: id,
+        transactionType: type
+      });
   }
 
   createTable(props) {
@@ -33,10 +41,10 @@ class CurrencyValues extends Component {
         <tr key={i}>
           <td cope="row">{i + 1}</td>
           <td>{type.abbr.substring(3, 6)}</td>
-          <td onClick={() => this.selectCell(i, "buy")}>
+          <td onClick={() => this.togglePopup(i, "buy")}>
             {(value - value / (100 - 2)).toFixed(4)}
           </td>
-          <td onClick={() => this.selectCell(i, "sell")}>
+          <td onClick={() => this.togglePopup(i, "sell")}>
             {(value + value / (100 + 2)).toFixed(4)}
           </td>
           <td>{value}</td>
@@ -46,7 +54,6 @@ class CurrencyValues extends Component {
     return table;
   }
   render() {
-    console.log(this.state);
     return (
       <div className="container">
         <Table bordered>
@@ -61,6 +68,15 @@ class CurrencyValues extends Component {
           </thead>
           <tbody>{this.createTable()}</tbody>
         </Table>
+        {this.state.popupOpen ? (
+          <CurrencyPopup
+            popupOpen={this.state.popupOpen}
+            id={this.state.activeId}
+            type={this.state.transactionType}
+          />
+        ) : (
+          ""
+        )}
       </div>
     );
   }

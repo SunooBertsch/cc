@@ -1,34 +1,34 @@
-/* eslint react/no-multi-comp: 0, react/prop-types: 0 */
-import React from 'react';
-import { Button, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
+import React from "react";
+import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 
 export default class CurrencyPopup extends React.Component {
   constructor(props) {
     super(props);
-
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      popoverOpen: false
-    };
   }
-
-  toggle() {
-    this.setState({
-      popoverOpen: !this.state.popoverOpen
-    });
-  }
-
   render() {
+    console.log(this.props);
     return (
-      <div>
-        <Button id="Popover1" onClick={this.toggle}>
-          Launch Popover
-        </Button>
-        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
-          <PopoverHeader>Popover Title</PopoverHeader>
-          <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
-        </Popover>
-      </div>
+      <Form>
+        <FormGroup>
+          <Label for="exampleEmail">Email</Label>
+          <Input
+            type="email"
+            name="email"
+            id="exampleEmail"
+            placeholder="with a placeholder"
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="examplePassword">Password</Label>
+          <Input
+            type="password"
+            name="password"
+            id="examplePassword"
+            placeholder="password placeholder"
+          />
+        </FormGroup>
+        <Button>Submit</Button>
+      </Form>
     );
   }
 }

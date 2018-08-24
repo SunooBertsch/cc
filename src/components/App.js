@@ -11,14 +11,12 @@ class App extends Component {
     // this.timer = setInterval(() => {
     //   this.props.getValues();
     // }, 30000);
-    console.log(this.props.currencies);
   }
   render() {
     return (
       <div>
         <Header />
         <CurrencyValuesTable />
-        <CurrencyPopup />
       </div>
     );
   }
