@@ -61,7 +61,7 @@ class CurrencyValues extends Component {
     return table;
   }
   render() {
-    console.log(this.props.site);
+    console.log(this.props);
     return (
       <div className="container">
         <div className="row">
