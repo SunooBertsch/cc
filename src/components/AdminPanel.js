@@ -12,7 +12,18 @@ import {
 } from "reactstrap";
 
 class AdminPanel extends Component {
+  constructor() {
+    super();
+    this.state = {
+      commission: "",
+      surcharge: "",
+      margin: "",
+      minimalCommission: ""
+    };
+  }
   render() {
+    console.log("admin props", this.props.admin);
+    console.log(this.state);
     return (
       <Form style={{ margin: "20px" }}>
         <FormGroup row>
@@ -25,6 +36,7 @@ class AdminPanel extends Component {
               name="commission"
               id="commission"
               placeholder="0.00"
+              onChange={e => this.setState({ commission: e.target.value })}
             />
           </Col>
           <Label sm={2}> %</Label>
@@ -39,6 +51,7 @@ class AdminPanel extends Component {
               name="surcharge"
               id="surcharge"
               placeholder="0.00"
+              onChange={e => this.setState({ surcharge: e.target.value })}
             />
           </Col>
           <Label sm={2}> %</Label>
@@ -53,6 +66,9 @@ class AdminPanel extends Component {
               name="minimalCommission"
               id="minimalCommission"
               placeholder="0.00"
+              onChange={e =>
+                this.setState({ minimalCommission: e.target.value })
+              }
             />
           </Col>
           <Label sm={2}> %</Label>
@@ -62,7 +78,13 @@ class AdminPanel extends Component {
             Buy/Sell rate margin:
           </Label>
           <Col sm={2}>
-            <Input type="number" name="margin" id="margin" placeholder="0.00" />
+            <Input
+              type="number"
+              name="margin"
+              id="margin"
+              placeholder="0.00"
+              onChange={e => this.setState({ margin: e.target.value })}
+            />
           </Col>
           <Label sm={2}> %</Label>
         </FormGroup>
@@ -72,8 +94,8 @@ class AdminPanel extends Component {
   }
 }
 
-function mapStateToProps({ reducer }) {
-  return { reducer };
+function mapStateToProps({ admin }) {
+  return { admin };
 }
 
 export default connect(mapStateToProps, actions)(AdminPanel);

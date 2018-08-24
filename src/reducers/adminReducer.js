@@ -5,7 +5,7 @@ export default function(
   action
 ) {
   switch (action.type) {
-    case SELECT_CELL:
+    case UPDATE_RATES:
       return (state = action.payload);
     default:
       return state;
