@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import CurrencyValuesTable from "./CurrencyValuesTable";
+import CurrencyPopup from "./CurrencyPopup";
 import Header from "./Header";
 import * as actions from "../actions";
 
@@ -17,6 +18,7 @@ class App extends Component {
       <div>
         <Header />
         <CurrencyValuesTable />
+        <CurrencyPopup />
       </div>
     );
   }

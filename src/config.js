@@ -10,11 +10,23 @@ module.exports = {
   variableCurrencies: [
     {
       currency: "British Pound",
-      code: "USDGBP"
+      abbr: "USDGBP"
     },
     {
       currency: "Canadian Dollar",
-      code: "USDCAD"
+      abbr: "USDCAD"
+    },
+    {
+      currency: "Indian Rupee",
+      abbr: "USDINR"
+    },
+    {
+      currency: "EU Euro",
+      abbr: "USDEUR"
+    },
+    {
+      currency: "Chinese Yuan",
+      abbr: "USDCNY"
     }
   ]
 };
