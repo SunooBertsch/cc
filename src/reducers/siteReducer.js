@@ -1,4 +1,8 @@
-import { CLOSE_POPUP, SELECT_CELL } from "../actions/index";
+import {
+  CLOSE_POPUP,
+  SELECT_CELL,
+  UPDATE_BUY_SELL_AMOUNT
+} from "../actions/index";
 
 export default function(state = { ...state, popupStatus: false }, action) {
   switch (action.type) {
@@ -6,6 +10,8 @@ export default function(state = { ...state, popupStatus: false }, action) {
       return (state = { ...state, popupStatus: action.payload });
     case SELECT_CELL:
       return { ...state };
+    case UPDATE_BUY_SELL_AMOUNT:
+      return { ...state, amountUsd: action.payload };
     default:
       return state;
   }

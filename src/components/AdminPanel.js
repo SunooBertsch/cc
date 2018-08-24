@@ -29,7 +29,7 @@ class AdminPanel extends Component {
         onSubmit={e => {
           e.preventDefault();
           this.props.updateRates(this.state);
-          e.target.reset()
+          e.target.reset();
         }}>
         <FormGroup row>
           <Label for="commission" sm={2}>

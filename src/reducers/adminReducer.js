@@ -2,7 +2,12 @@ import { UPDATE_RATES } from "../actions/index";
 
 export default function(
   state = {
-    rates: { commission: 1, surcharge: 1, minimalCommission: 1, margin: 1 }
+    rates: {
+      commissionPct: 0.01,
+      surcharge: 1,
+      minimalCommission: 1,
+      margin: 1
+    }
   },
   action
 ) {
