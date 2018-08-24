@@ -8,11 +8,6 @@ import CurrencyPopup from "./CurrencyPopup";
 class CurrencyValues extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      popupOpen: false,
-      activeId: null,
-      transactionType: ""
-    };
     this.createTable = this.createTable.bind(this);
     this.togglePopup = this.togglePopup.bind(this);
   }
