@@ -9,7 +9,8 @@ export default class Header extends Component {
           <a href="/">
             <img
               src={require("../logo.png")}
-              style={{ "max-height": "50px" }}
+              alt=""
+              style={{ maxHeight: "50px" }}
             />
           </a>
           <NavbarBrand href="/" className="ml-auto">

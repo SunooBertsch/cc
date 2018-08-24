@@ -1,10 +1,9 @@
 import React from "react";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { connect } from "react-redux";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import * as actions from "../actions";
 
-export default class CurrencyPopup extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+class CurrencyPopup extends React.Component {
   render() {
     console.log(this.props);
     return (
@@ -28,7 +27,14 @@ export default class CurrencyPopup extends React.Component {
           />
         </FormGroup>
         <Button>Submit</Button>
+        <Button onClick={this.props.closePopup}>Submit</Button>
       </Form>
     );
   }
 }
+
+function mapStateToProps({ site }) {
+  return { site };
+}
+
+export default connect(mapStateToProps, actions)(CurrencyPopup);

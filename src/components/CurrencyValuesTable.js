@@ -18,18 +18,12 @@ class CurrencyValues extends Component {
   }
 
   togglePopup(id, type) {
-    if (this.state.activeId === id && this.state.transactionType === type) {
-      this.setState({
-        popupOpen: false,
-        activeId: null,
-        transactionType: ""
-      });
-    } else
-      this.setState({
-        popupOpen: true,
-        activeId: id,
-        transactionType: type
-      });
+    const data = {
+      popupOpen: true,
+      activeId: id,
+      transactionType: type
+    };
+    this.props.selectCell(data);
   }
 
   createTable(props) {
@@ -54,6 +48,7 @@ class CurrencyValues extends Component {
     return table;
   }
   render() {
+    console.log(this.props.site);
     return (
       <div className="container">
         <Table bordered>
@@ -68,23 +63,16 @@ class CurrencyValues extends Component {
           </thead>
           <tbody>{this.createTable()}</tbody>
         </Table>
-        {this.state.popupOpen ? (
-          <CurrencyPopup
-            popupOpen={this.state.popupOpen}
-            id={this.state.activeId}
-            type={this.state.transactionType}
-          />
-        ) : (
-          ""
-        )}
+        {this.props.site.popupStatus.popupOpen ? <CurrencyPopup /> : ""}
       </div>
     );
   }
 }
 
-function mapStateToProps({ currencies }) {
+function mapStateToProps({ currencies, site }) {
   return {
-    currencies
+    currencies,
+    site
   };
 }
 
