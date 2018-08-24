@@ -4,6 +4,11 @@ import * as actions from "../actions";
 import CurrencyValuesTable from "./CurrencyValuesTable";
 
 class App extends Component {
+  componentWillMount() {
+    this.props.getValues();
+    console.log(this.props.currencies);
+  }
+
   render() {
     return (
       <div>
