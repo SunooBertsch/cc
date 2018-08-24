@@ -6,7 +6,6 @@ import * as actions from "../actions";
 class CurrencyPopup extends React.Component {
   render() {
     const state = this.props.site;
-    console.log(this.props);
     const commissionAmount = Math.ceil(
       Math.max(
         state.amountUsd * this.props.admin.rates.commissionPct +
@@ -16,8 +15,17 @@ class CurrencyPopup extends React.Component {
       2
     );
     const subtotal = state.amountUsd * state.popupStatus.exchangeRate;
+    const popupHeader =
+      state.popupStatus.transactionType.charAt(0).toUpperCase() +
+      state.popupStatus.transactionType.substring(
+        1,
+        state.popupStatus.transactionType.length
+      ) +
+      " " +
+      state.popupStatus.country;
     return (
       <Form className="col-sm-6">
+        <h4>{popupHeader}</h4>
         <FormGroup row>
           <Label for="amountToBuy">Amount to buy:</Label>
           <Input

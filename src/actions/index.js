@@ -28,7 +28,7 @@ export const closePopup = () => async dispatch => {
 export const selectCell = data => async dispatch => {
   console.log("cell selected");
   dispatch({
-    type: CLOSE_POPUP,
+    type: SELECT_CELL,
     payload: data
   });
 };

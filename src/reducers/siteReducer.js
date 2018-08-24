@@ -7,9 +7,9 @@ import {
 export default function(state = { ...state, popupStatus: false }, action) {
   switch (action.type) {
     case CLOSE_POPUP:
-      return (state = { ...state, popupStatus: action.payload });
+      return (state = { ...state, popupStatus: action.payload, amountUsd: 0 });
     case SELECT_CELL:
-      return { ...state };
+      return (state = { ...state, popupStatus: action.payload });
     case UPDATE_BUY_SELL_AMOUNT:
       return { ...state, amountUsd: action.payload };
     default:
