@@ -7,14 +7,14 @@ import * as actions from "../actions";
 class App extends Component {
   componentDidMount() {
     this.props.getValues();
-    this.timer = setInterval(() => {
-      this.props.getValues();
-    }, 30000);
+    // this.timer = setInterval(() => {
+    //   this.props.getValues();
+    // }, 30000);
     console.log(this.props.currencies);
   }
   render() {
     return (
-      <div className="App">
+      <div>
         <Header />
         <CurrencyValuesTable />
       </div>
