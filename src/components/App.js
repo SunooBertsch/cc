@@ -1,28 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actions from "../actions";
 import CurrencyValuesTable from "./CurrencyValuesTable";
+import Header from "./Header";
+import * as actions from "../actions";
 
 class App extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.getValues();
+    this.timer = setInterval(() => {
+      this.props.getValues();
+    }, 30000);
     console.log(this.props.currencies);
   }
-
   render() {
     return (
-      <div>
+      <div className="App">
+        <Header />
         <CurrencyValuesTable />
-        <button onClick={() => this.props.getValues()}>Get Values</button>
       </div>
     );
   }
 }
 
-function mapStateToProps({ currencies }) {
-  return {
-    currencies
-  };
-}
-
-export default connect(mapStateToProps, actions)(App);
+export default connect(null, actions)(App);

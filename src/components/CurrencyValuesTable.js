@@ -28,8 +28,6 @@ class CurrencyValues extends Component {
   render() {
     console.log("Props in component", this.props);
 
-    let type = config.variableCurrencies[0];
-
     return (
       <div>
         <Table bordered>
