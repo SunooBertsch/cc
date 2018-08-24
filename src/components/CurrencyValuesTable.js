@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 import config from "../config";
 import { Table } from "reactstrap";
-import CurrencyPopup from "./CurrencyPopup";
+import BuySellPopup from "./BuySellPopup";
 
 class CurrencyValues extends Component {
   constructor(props) {
@@ -12,11 +12,13 @@ class CurrencyValues extends Component {
     this.togglePopup = this.togglePopup.bind(this);
   }
 
-  togglePopup(id, type) {
+  togglePopup(id, type, country, exchangeRate) {
     const data = {
       popupOpen: true,
       activeId: id,
-      transactionType: type
+      transactionType: type,
+      country,
+      exchangeRate
     };
     this.props.selectCell(data);
   }
@@ -30,10 +32,26 @@ class CurrencyValues extends Component {
         <tr key={i}>
           <td cope="row">{i + 1}</td>
           <td>{type.abbr.substring(3, 6)}</td>
-          <td onClick={() => this.togglePopup(i, "buy")}>
+          <td
+            onClick={() =>
+              this.togglePopup(
+                i,
+                "buy",
+                type.abbr.substring(3, 6),
+                (value - value / (100 - 2)).toFixed(4)
+              )
+            }>
             {(value - value / (100 - 2)).toFixed(4)}
           </td>
-          <td onClick={() => this.togglePopup(i, "sell")}>
+          <td
+            onClick={() =>
+              this.togglePopup(
+                i,
+                "sell",
+                type.abbr.substring(3, 6),
+                (value + value / (100 + 2)).toFixed(4)
+              )
+            }>
             {(value + value / (100 + 2)).toFixed(4)}
           </td>
           <td>{value}</td>
@@ -46,19 +64,25 @@ class CurrencyValues extends Component {
     console.log(this.props.site);
     return (
       <div className="container">
-        <Table bordered>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Currency</th>
-              <th>Buy</th>
-              <th>Sell</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>{this.createTable()}</tbody>
-        </Table>
-        {this.props.site.popupStatus.popupOpen ? <CurrencyPopup /> : ""}
+        <div className="row">
+          <Table bordered>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Currency</th>
+                <th>Buy</th>
+                <th>Sell</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>{this.createTable()}</tbody>
+          </Table>
+        </div>
+        <div className="row">
+          <div className="col-sm-3" />
+          {this.props.site.popupStatus.popupOpen ? <BuySellPopup /> : ""}
+          <div className="col-sm-3" />
+        </div>
       </div>
     );
   }
