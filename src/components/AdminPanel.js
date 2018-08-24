@@ -71,7 +71,9 @@ class AdminPanel extends Component {
               id="minimalCommission"
               placeholder={rates.minimalCommission}
               onChange={e =>
-                this.setState({ minimalCommission: parseInt(e.target.value, 10) })
+                this.setState({
+                  minimalCommission: parseInt(e.target.value, 10)
+                })
               }
             />
           </Col>

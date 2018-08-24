@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-import currenciesReducer from "./currenciesReducer";
+import currencyRatesReducer from "./currenciesReducer";
 import siteReducer from "./siteReducer";
 import adminReducer from "./adminReducer";
+import inventoryReducer from "./inventoryReducer";
 
 export default combineReducers({
-  currencies: currenciesReducer,
+  currencyRates: currencyRatesReducer,
   site: siteReducer,
-  admin: adminReducer
+  admin: adminReducer,
+  inventory: inventoryReducer
 });

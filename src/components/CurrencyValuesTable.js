@@ -24,9 +24,10 @@ class CurrencyValues extends Component {
   }
 
   createTable(props) {
+    console.log(this.props);
     const table = config.variableCurrencies.map((type, i) => {
-      const value = this.props.currencies.quotes
-        ? this.props.currencies.quotes[type.abbr]
+      const value = this.props.currencyRates.quotes
+        ? this.props.currencyRates.quotes[type.abbr]
         : 0;
       return (
         <tr key={i}>
@@ -54,7 +55,7 @@ class CurrencyValues extends Component {
             }>
             {(value + value / (100 + 2)).toFixed(4)}
           </td>
-          <td>{value}</td>
+          <td>{this.props.inventory.currencies[type.abbr.substring(3, 6)]}</td>
         </tr>
       );
     });
@@ -92,11 +93,12 @@ class CurrencyValues extends Component {
   }
 }
 
-function mapStateToProps({ currencies, site, admin }) {
+function mapStateToProps({ currencyRates, site, admin, inventory }) {
   return {
-    currencies,
+    currencyRates,
     site,
-    admin
+    admin,
+    inventory
   };
 }
 

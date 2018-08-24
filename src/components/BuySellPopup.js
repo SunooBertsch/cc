@@ -72,8 +72,8 @@ class CurrencyPopup extends React.Component {
   }
 }
 
-function mapStateToProps({ site, currencies, admin }) {
-  return { site, currencies, admin };
+function mapStateToProps({ site, admin }) {
+  return { site, admin };
 }
 
 export default connect(mapStateToProps, actions)(CurrencyPopup);
