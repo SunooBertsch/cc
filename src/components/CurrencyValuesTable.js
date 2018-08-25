@@ -24,7 +24,6 @@ class CurrencyValues extends Component {
   }
 
   createTable(props) {
-    console.log(this.props);
     const table = config.variableCurrencies.map((type, i) => {
       const value = this.props.currencyRates.quotes
         ? this.props.currencyRates.quotes[type.abbr]

@@ -47,6 +47,7 @@ export const updateBuySellAmount = data => async dispatch => {
 };
 
 export const updateInventory = data => async dispatch => {
+  console.log("updateInventory dispatched");
   let inventory = data.currentInventory;
   const updatedCurrencyValue =
     data.transactionType === "sell"
