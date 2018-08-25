@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import config from "../config";
-import { Table } from "reactstrap";
+import { Table, Badge } from "reactstrap";
 import BuySellPopup from "./BuySellPopup";
 
 class CurrencyValues extends Component {
@@ -61,8 +61,15 @@ class CurrencyValues extends Component {
     return table;
   }
   render() {
+    const timestamp = this.props.currencyRates
+      ? this.props.currencyRates.timestamp
+      : "";
     return (
       <div className="container">
+        <Badge>
+          Exchange rates shows as per {timestamp}. You have{" "}
+          {this.props.inventory["USD"].toFixed(2)} USD left
+        </Badge>
         <div className="row">
           <Table bordered>
             <thead>

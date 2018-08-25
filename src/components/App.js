@@ -9,15 +9,20 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 class App extends Component {
   componentDidMount() {
     this.props.getValues();
-    // this.timer = setInterval(() => {
-    //   this.props.getValues();
-    // }, 30000);
+    this.timer = setInterval(() => {
+      this.props.getValues();
+    }, 6000);
   }
   render() {
     return (
       <div>
         <Router>
-          <div>
+          <div
+            style={{
+              backgroundImage:
+                "linear-gradient(to bottom right, #FFEF03, white)",
+              height: "100px"
+            }}>
             <Header />
             <Route exact path="/" component={CurrencyValuesTable} />
             <Route path="/admin" component={AdminPanel} />
@@ -26,6 +31,10 @@ class App extends Component {
       </div>
     );
   }
+}
+
+function mapStateToProps({ admin }) {
+  return { admin };
 }
 
 export default connect(null, actions)(App);

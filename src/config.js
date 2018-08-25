@@ -3,7 +3,8 @@ module.exports = {
     commissionPct: 0.01,
     surcharge: 1,
     minimalCommission: 1,
-    margin: 0.01
+    margin: 0.01,
+    refreshRate: 1
   },
   initialInventory: {
     GBP: 500,

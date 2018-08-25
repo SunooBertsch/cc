@@ -26,6 +26,23 @@ class AdminPanel extends Component {
           e.target.reset();
         }}>
         <FormGroup row>
+          <Label for="refreshRate" sm={2}>
+            Refresh currency exchange rates every
+          </Label>
+          <Col sm={2}>
+            <Input
+              type="number"
+              name="refreshRate"
+              id="refreshRate"
+              placeholder={rates.surcharge}
+              onChange={e =>
+                this.setState({ surcharge: parseInt(e.target.value, 10) })
+              }
+            />
+          </Col>
+          <Label sm={2}> seconds</Label>
+        </FormGroup>
+        <FormGroup row>
           <Label for="commission" sm={2}>
             Commission:
           </Label>

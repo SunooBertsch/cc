@@ -60,6 +60,10 @@ class CurrencyPopup extends React.Component {
 
   render() {
     const selectedCell = this.props.popup;
+    console.log("USD" + selectedCell.popupConfig.country);
+    console.log(
+      this.props.currencyRates.quotes["USD" + selectedCell.popupConfig.country]
+    );
     const adminRates = this.props.admin.rates;
     const commissionAmount = Math.ceil(
       Math.max(
@@ -117,7 +121,13 @@ class CurrencyPopup extends React.Component {
           <Label for="exchangeRate" sm={8}>
             Exchange Rate
           </Label>
-          <Label sm={4}>{selectedCell.popupConfig.exchangeRate}</Label>
+          <Label sm={4}>
+            {
+              this.props.currencyRates.quotes[
+                "USD" + selectedCell.popupConfig.country
+              ]
+            }
+          </Label>
         </FormGroup>
         <FormGroup row>
           <Label for="subtotal" sm={8}>
@@ -142,8 +152,8 @@ class CurrencyPopup extends React.Component {
   }
 }
 
-function mapStateToProps({ popup, admin, inventory }) {
-  return { popup, admin, inventory };
+function mapStateToProps({ popup, admin, inventory, currencyRates }) {
+  return { popup, admin, inventory, currencyRates };
 }
 
 export default connect(mapStateToProps, actions)(CurrencyPopup);

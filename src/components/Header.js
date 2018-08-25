@@ -6,14 +6,7 @@ export default class Header extends Component {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <Link to="/">
-            <img
-              src={require("../logo.png")}
-              alt=""
-              style={{ maxHeight: "50px" }}
-            />
-          </Link>
+        <Navbar light expand="md">
           <NavbarBrand href="/" className="ml-auto">
             Airport Currency Exchange
           </NavbarBrand>
@@ -25,6 +18,13 @@ export default class Header extends Component {
               <Link to="/admin">Admin</Link>
             </NavItem>
           </Nav>
+          <Link to="/" style={{ marginLeft: "20px" }}>
+            <img
+              src={require("../logo.jpg")}
+              alt=""
+              style={{ maxHeight: "50px" }}
+            />
+          </Link>
         </Navbar>
       </div>
     );
