@@ -4,27 +4,47 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import * as actions from "../actions";
 
 class CurrencyPopup extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      amount: 0
+    };
+  }
+
   render() {
-    const state = this.props.site;
+    const selectedCurrency = this.props.site;
+    const adminRates = this.props.admin.rates;
     const commissionAmount = Math.ceil(
       Math.max(
-        state.amountUsd * this.props.admin.rates.commissionPct +
-          this.props.admin.rates.surcharge,
-        this.props.admin.rates.minimalCommission
+        selectedCurrency.amountUsd * adminRates.commissionPct +
+          adminRates.surcharge,
+        adminRates.minimalCommission
       ),
       2
     );
-    const subtotal = state.amountUsd * state.popupStatus.exchangeRate;
+    const subtotal =
+      selectedCurrency.amountUsd * selectedCurrency.popupStatus.exchangeRate;
     const popupHeader =
-      state.popupStatus.transactionType.charAt(0).toUpperCase() +
-      state.popupStatus.transactionType.substring(
+      selectedCurrency.popupStatus.transactionType.charAt(0).toUpperCase() +
+      selectedCurrency.popupStatus.transactionType.substring(
         1,
-        state.popupStatus.transactionType.length
+        selectedCurrency.popupStatus.transactionType.length
       ) +
       " " +
-      state.popupStatus.country;
+      selectedCurrency.popupStatus.country;
+
     return (
-      <Form bordered className="col-sm-6">
+      <Form
+        className="col-sm-6"
+        onSubmit={e => {
+          e.preventDefault();
+          this.props.updateInventory({
+            amount: this.state.amount,
+            country: selectedCurrency.popupStatus.country,
+            currentInventory: this.props.inventory,
+            transactionType: selectedCurrency.popupStatus.transactionType
+          });
+        }}>
         <FormGroup row>
           <h4 xs={9}>{popupHeader}</h4>
           <Button xs={3} className="ml-auto" onClick={this.props.closePopup}>
@@ -39,6 +59,7 @@ class CurrencyPopup extends React.Component {
             id="amountToBuy"
             placeholder="0.00"
             onChange={e => {
+              this.setState({ amount: e.target.value });
               this.props.updateBuySellAmount(e.target.value);
             }}
           />
@@ -47,7 +68,7 @@ class CurrencyPopup extends React.Component {
           <Label for="exchangeRate" sm={8}>
             Exchange Rate
           </Label>
-          <Label sm={4}>{state.popupStatus.exchangeRate}</Label>
+          <Label sm={4}>{selectedCurrency.popupStatus.exchangeRate}</Label>
         </FormGroup>
         <FormGroup row>
           <Label for="subtotal" sm={8}>
@@ -72,8 +93,8 @@ class CurrencyPopup extends React.Component {
   }
 }
 
-function mapStateToProps({ site, admin }) {
-  return { site, admin };
+function mapStateToProps({ site, admin, inventory }) {
+  return { site, admin, inventory };
 }
 
 export default connect(mapStateToProps, actions)(CurrencyPopup);

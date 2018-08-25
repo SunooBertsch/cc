@@ -17,7 +17,6 @@ class AdminPanel extends Component {
   }
   render() {
     const rates = this.props.admin.rates;
-    console.log("admin props", this.props);
     return (
       <Form
         style={{ margin: "20px" }}

@@ -55,14 +55,13 @@ class CurrencyValues extends Component {
             }>
             {(value + value / (100 + 2)).toFixed(4)}
           </td>
-          <td>{this.props.inventory.currencies[type.abbr.substring(3, 6)]}</td>
+          <td>{this.props.inventory[type.abbr.substring(3, 6)]}</td>
         </tr>
       );
     });
     return table;
   }
   render() {
-    console.log(this.props);
     return (
       <div className="container">
         <div className="row">
