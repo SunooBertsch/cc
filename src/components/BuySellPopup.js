@@ -12,6 +12,7 @@ class CurrencyPopup extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     const selectedCurrency = this.props.site;
     const adminRates = this.props.admin.rates;
     const commissionAmount = Math.ceil(
@@ -42,14 +43,18 @@ class CurrencyPopup extends React.Component {
             amount: this.state.amount,
             country: selectedCurrency.popupStatus.country,
             currentInventory: this.props.inventory,
-            transactionType: selectedCurrency.popupStatus.transactionType
+            transactionType: selectedCurrency.popupStatus.transactionType,
+            subtotal: subtotal.toFixed(2)
           });
         }}>
         <FormGroup row>
-          <h4 xs={9}>{popupHeader}</h4>
+          <h4 xs={6}>{popupHeader}</h4>
           <Button xs={3} className="ml-auto" onClick={this.props.closePopup}>
             X
           </Button>
+        </FormGroup>
+        <FormGroup>
+          <h6> USD Available: {this.props.inventory.USD}</h6>
         </FormGroup>
         <FormGroup row style={{ margin: "5px" }}>
           <Label for="amountToBuy">Amount to buy:</Label>
