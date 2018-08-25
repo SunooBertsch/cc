@@ -1,13 +1,9 @@
 import { UPDATE_RATES } from "../actions/index";
+import config from "../config";
 
 export default function(
   state = {
-    rates: {
-      commissionPct: 0.01,
-      surcharge: 1,
-      minimalCommission: 1,
-      margin: 0.01
-    }
+    rates: config.rates
   },
   action
 ) {

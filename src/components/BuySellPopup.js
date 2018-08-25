@@ -17,14 +17,14 @@ class CurrencyPopup extends React.Component {
     const adminRates = this.props.admin.rates;
     const commissionAmount = Math.ceil(
       Math.max(
-        selectedCurrency.baseCurrencyInInventory * adminRates.commissionPct +
+        selectedCurrency.amountUsd * adminRates.commissionPct +
           adminRates.surcharge,
         adminRates.minimalCommission
       ),
       2
     );
     const subtotal =
-      selectedCurrency.baseCurrencyInInventory * selectedCurrency.popupConfig.exchangeRate;
+      selectedCurrency.amountUsd * selectedCurrency.popupConfig.exchangeRate;
     const popupHeader =
       selectedCurrency.popupConfig.transactionType.charAt(0).toUpperCase() +
       selectedCurrency.popupConfig.transactionType.substring(
@@ -39,13 +39,25 @@ class CurrencyPopup extends React.Component {
         className="col-sm-6"
         onSubmit={e => {
           e.preventDefault();
-          this.props.updateInventory({
-            amount: this.state.amount,
-            country: selectedCurrency.popupConfig.country,
-            currentInventory: this.props.inventory,
-            transactionType: selectedCurrency.popupConfig.transactionType,
-            subtotal: subtotal.toFixed(2)
-          });
+          console.log(
+            "data",
+            selectedCurrency.popupConfig.transactionType,
+            subtotal,
+            this.props.popup.amountUsd
+          );
+          if (
+            selectedCurrency.popupConfig.transactionType === "buy" &&
+            subtotal > this.props.inventory.USD
+          ) {
+            alert("Insufficient funds to complete transaction.");
+          } else
+            this.props.updateInventory({
+              amount: this.state.amount,
+              country: selectedCurrency.popupConfig.country,
+              currentInventory: this.props.inventory,
+              transactionType: selectedCurrency.popupConfig.transactionType,
+              subtotal: subtotal.toFixed(2)
+            });
         }}>
         <FormGroup row>
           <h4 xs={6}>{popupHeader}</h4>

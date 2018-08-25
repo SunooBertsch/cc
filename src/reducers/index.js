@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import currencyRatesReducer from "./currenciesReducer";
-import popupReducer from "./popUpReducer";
+import popupReducer from "./popupReducer";
 import adminReducer from "./adminReducer";
 import inventoryReducer from "./inventoryReducer";
 

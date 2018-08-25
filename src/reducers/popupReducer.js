@@ -21,12 +21,12 @@ export default function(
       return (state = {
         ...state,
         popupConfig: action.payload,
-        baseCurrencyInInventory: 0
+        amountUsd: 0
       });
     case SELECT_CELL:
       return (state = { ...state, popupConfig: action.payload });
     case UPDATE_BUY_SELL_AMOUNT:
-      return { ...state, baseCurrencyInInventory: action.payload };
+      return { ...state, amountUsd: action.payload };
     default:
       return state;
   }
