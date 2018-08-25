@@ -54,7 +54,7 @@ class CurrencyPopup extends React.Component {
           </Button>
         </FormGroup>
         <FormGroup>
-          <h6> USD Available: {this.props.inventory.USD}</h6>
+          <h6> USD Available: {this.props.inventory.USD.toFixed(2)}</h6>
         </FormGroup>
         <FormGroup row style={{ margin: "5px" }}>
           <Label for="amountToBuy">Amount to buy:</Label>
