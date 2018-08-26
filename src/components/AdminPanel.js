@@ -16,7 +16,27 @@ class AdminPanel extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.admin ? this.props.admin.rates : {};
+
+    this.checkInputValues = this.checkInputValues.bind(this);
   }
+
+  checkInputValues(state) {
+    if (
+      state.commissionPct < 0 ||
+      state.surcharge < 0 ||
+      state.minimalCommission < 0 ||
+      state.margin < 0 ||
+      state.refreshRate < 1
+    ) {
+      return alert(
+        "Rates must be positive numbers, and refresh rate must be at least 1 second"
+      );
+    } else {
+      this.props.updateRates(this.state);
+      return alert("Rates updated.");
+    }
+  }
+
   render() {
     const rates = this.props.admin.rates;
     return (
@@ -25,8 +45,7 @@ class AdminPanel extends Component {
           className="col-sm-6"
           onSubmit={e => {
             e.preventDefault();
-            this.props.updateRates(this.state);
-            alert("Rates updated.");
+            this.checkInputValues(this.state);
           }}>
           <FormGroup>
             <InputGroup>
@@ -39,7 +58,9 @@ class AdminPanel extends Component {
                 id="refreshRate"
                 placeholder={rates.refreshRate}
                 onChange={e =>
-                  this.setState({ refreshRate: parseInt(e.target.value, 10) })
+                  this.setState({
+                    refreshRate: parseInt(e.target.value, 10)
+                  })
                 }
               />
               <Label sm={2}> seconds </Label>
