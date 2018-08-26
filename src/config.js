@@ -1,12 +1,20 @@
 module.exports = {
-  commission: 0,
-  surcharge: 0,
-  minimalCommission: 0,
-  rateMargin: 0,
-  baseCurrency: {
-    type: "USD",
-    value: 0
+  rates: {
+    commissionPct: 0.02,
+    surcharge: 3,
+    minimalCommission: 10,
+    margin: 0.01,
+    refreshRate: 6
   },
+  initialInventory: {
+    GBP: 500,
+    INR: 1000,
+    CAD: 300,
+    EUR: 750,
+    CNY: 200,
+    USD: 3000
+  },
+
   variableCurrencies: [
     {
       currency: "British Pound",

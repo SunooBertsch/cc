@@ -9,54 +9,104 @@ class CurrencyPopup extends React.Component {
     this.state = {
       amount: 0
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit() {
+    const selectedCell = this.props.popup;
+    const subtotal =
+      selectedCell.amountUsd *
+      this.props.currencyRates.quotes["USD" + selectedCell.popupConfig.country];
+    if (
+      selectedCell.popupConfig.transactionType === "buy" &&
+      subtotal > this.props.inventory.USD
+    ) {
+      alert("Insufficient funds to complete transaction.");
+    } else if (
+      selectedCell.popupConfig.transactionType === "buy" &&
+      subtotal <= this.props.inventory.USD
+    ) {
+      this.props.updateInventory({
+        amount: this.state.amount,
+        country: selectedCell.popupConfig.country,
+        currentInventory: this.props.inventory,
+        transactionType: selectedCell.popupConfig.transactionType,
+        subtotal: subtotal.toFixed(2)
+      });
+    }
+
+    if (
+      selectedCell.popupConfig.transactionType === "sell" &&
+      this.state.amount > this.props.inventory[selectedCell.popupConfig.country]
+    ) {
+      alert(
+        "Insufficient amount of selected currency available to complete transaction."
+      );
+    } else if (
+      selectedCell.popupConfig.transactionType === "sell" &&
+      this.state.amount <=
+        this.props.inventory[selectedCell.popupConfig.country]
+    ) {
+      this.props.updateInventory({
+        amount: this.state.amount,
+        country: selectedCell.popupConfig.country,
+        currentInventory: this.props.inventory,
+        transactionType: selectedCell.popupConfig.transactionType,
+        subtotal: subtotal.toFixed(2)
+      });
+    }
   }
 
   render() {
-    const selectedCurrency = this.props.site;
+    const selectedCell = this.props.popup;
     const adminRates = this.props.admin.rates;
     const commissionAmount = Math.ceil(
       Math.max(
-        selectedCurrency.amountUsd * adminRates.commissionPct +
+        selectedCell.amountUsd * adminRates.commissionPct +
           adminRates.surcharge,
         adminRates.minimalCommission
       ),
       2
     );
     const subtotal =
-      selectedCurrency.amountUsd * selectedCurrency.popupStatus.exchangeRate;
+      selectedCell.amountUsd *
+      this.props.currencyRates.quotes["USD" + selectedCell.popupConfig.country];
     const popupHeader =
-      selectedCurrency.popupStatus.transactionType.charAt(0).toUpperCase() +
-      selectedCurrency.popupStatus.transactionType.substring(
+      selectedCell.popupConfig.transactionType.charAt(0).toUpperCase() +
+      selectedCell.popupConfig.transactionType.substring(
         1,
-        selectedCurrency.popupStatus.transactionType.length
+        selectedCell.popupConfig.transactionType.length
       ) +
       " " +
-      selectedCurrency.popupStatus.country;
+      selectedCell.popupConfig.country;
 
     return (
       <Form
         className="col-sm-6"
         onSubmit={e => {
           e.preventDefault();
-          this.props.updateInventory({
-            amount: this.state.amount,
-            country: selectedCurrency.popupStatus.country,
-            currentInventory: this.props.inventory,
-            transactionType: selectedCurrency.popupStatus.transactionType
-          });
+          this.handleSubmit();
         }}>
         <FormGroup row>
-          <h4 xs={9}>{popupHeader}</h4>
+          <h4 xs={6}>{popupHeader}</h4>
           <Button xs={3} className="ml-auto" onClick={this.props.closePopup}>
             X
           </Button>
         </FormGroup>
+        <FormGroup>
+          <h6> USD Available: {this.props.inventory.USD.toFixed(2)}</h6>
+        </FormGroup>
         <FormGroup row style={{ margin: "5px" }}>
-          <Label for="amountToBuy">Amount to buy:</Label>
+          <Label for="amountToBuySell">
+            {selectedCell.popupConfig.transactionType === "buy"
+              ? "Amount to buy"
+              : "Amount to sell"}:
+          </Label>
           <Input
             type="number"
-            name="amountToBuy"
-            id="amountToBuy"
+            name="amountToBuySell"
+            id="amountToBuySell"
             placeholder="0.00"
             onChange={e => {
               this.setState({ amount: e.target.value });
@@ -68,7 +118,11 @@ class CurrencyPopup extends React.Component {
           <Label for="exchangeRate" sm={8}>
             Exchange Rate
           </Label>
-          <Label sm={4}>{selectedCurrency.popupStatus.exchangeRate}</Label>
+          <Label sm={4}>
+            {this.props.currencyRates.quotes[
+              "USD" + selectedCell.popupConfig.country
+            ].toFixed(4)}
+          </Label>
         </FormGroup>
         <FormGroup row>
           <Label for="subtotal" sm={8}>
@@ -93,8 +147,8 @@ class CurrencyPopup extends React.Component {
   }
 }
 
-function mapStateToProps({ site, admin, inventory }) {
-  return { site, admin, inventory };
+function mapStateToProps({ popup, admin, inventory, currencyRates }) {
+  return { popup, admin, inventory, currencyRates };
 }
 
 export default connect(mapStateToProps, actions)(CurrencyPopup);

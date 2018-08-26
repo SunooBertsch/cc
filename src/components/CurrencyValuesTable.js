@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import config from "../config";
-import { Table } from "reactstrap";
+import { Table, Badge } from "reactstrap";
 import BuySellPopup from "./BuySellPopup";
 
 class CurrencyValues extends Component {
@@ -10,6 +10,17 @@ class CurrencyValues extends Component {
     super(props);
     this.createTable = this.createTable.bind(this);
     this.togglePopup = this.togglePopup.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getValues();
+    this.timer = setInterval(() => {
+      this.props.getValues();
+    }, this.props.admin.rates.refreshRate * 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   togglePopup(id, type, country, exchangeRate) {
@@ -24,7 +35,6 @@ class CurrencyValues extends Component {
   }
 
   createTable(props) {
-    console.log(this.props);
     const table = config.variableCurrencies.map((type, i) => {
       const value = this.props.currencyRates.quotes
         ? this.props.currencyRates.quotes[type.abbr]
@@ -62,8 +72,15 @@ class CurrencyValues extends Component {
     return table;
   }
   render() {
+    const timestamp = this.props.currencyRates
+      ? this.props.currencyRates.timestamp
+      : "";
     return (
       <div className="container">
+        <h6 style={{ textAlign: "center" }}>
+          Exchange rates shows as per {timestamp}. You have{" "}
+          {this.props.inventory["USD"].toFixed(2)} USD left
+        </h6>
         <div className="row">
           <Table bordered>
             <thead>
@@ -80,7 +97,7 @@ class CurrencyValues extends Component {
         </div>
         <div className="row">
           <div className="col-sm-3" />
-          {this.props.site.popupStatus.popupOpen ? (
+          {this.props.popup.popupConfig.popupOpen ? (
             <BuySellPopup style={{ border: "solid grey 1px" }} />
           ) : (
             ""
@@ -92,10 +109,10 @@ class CurrencyValues extends Component {
   }
 }
 
-function mapStateToProps({ currencyRates, site, admin, inventory }) {
+function mapStateToProps({ currencyRates, popup, admin, inventory }) {
   return {
     currencyRates,
-    site,
+    popup,
     admin,
     inventory
   };

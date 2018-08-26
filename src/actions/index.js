@@ -11,6 +11,9 @@ export const getValues = () => async dispatch => {
   const res = await axios.get(
     "http://www.apilayer.net/api/live?access_key=b47d252d44af208794aafe0c9bb50aec"
   );
+  const timestamp = Number(new Date());
+  const date = new Date(timestamp);
+  res.data.timestamp = date.toString();
   dispatch({
     type: GET_VALUES,
     payload: res.data
@@ -54,8 +57,11 @@ export const updateInventory = data => async dispatch => {
         parseFloat(data.amount)
       : parseFloat(data.currentInventory[data.country]) +
         parseFloat(data.amount);
-  console.log("dataObj", inventory);
   inventory[data.country] = updatedCurrencyValue;
+  inventory["USD"] =
+    data.transactionType === "sell"
+      ? parseFloat(inventory["USD"]) + parseFloat(data.subtotal)
+      : parseFloat(inventory["USD"]) - parseFloat(data.subtotal);
   dispatch({
     type: UPDATE_INVENTORY,
     payload: inventory
