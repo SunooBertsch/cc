@@ -80,7 +80,13 @@ class CurrencyPopup extends React.Component {
       ) +
       " " +
       selectedCell.popupConfig.country;
-
+    const value = this.props.currencyRates.quotes
+      ? this.props.currencyRates.quotes[
+          "USD" + selectedCell.popupConfig.country
+        ]
+      : 0;
+    const sellValue = (value + value / (100 + 2)).toFixed(4);
+    const buyValue = (value - value / (100 - 2)).toFixed(4);
     return (
       <Form
         className="col-sm-6"
@@ -119,9 +125,9 @@ class CurrencyPopup extends React.Component {
             Exchange Rate
           </Label>
           <Label sm={4}>
-            {this.props.currencyRates.quotes[
-              "USD" + selectedCell.popupConfig.country
-            ].toFixed(4)}
+            {selectedCell.popupConfig.transactionType === "sell"
+              ? sellValue
+              : buyValue}
           </Label>
         </FormGroup>
         <FormGroup row>
