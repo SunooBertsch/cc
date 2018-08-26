@@ -16,7 +16,8 @@ class CurrencyPopup extends React.Component {
   handleSubmit() {
     const selectedCell = this.props.popup;
     const subtotal =
-      selectedCell.amountUsd * selectedCell.popupConfig.exchangeRate;
+      selectedCell.amountUsd *
+      this.props.currencyRates.quotes["USD" + selectedCell.popupConfig.country];
     if (
       selectedCell.popupConfig.transactionType === "buy" &&
       subtotal > this.props.inventory.USD
@@ -60,10 +61,6 @@ class CurrencyPopup extends React.Component {
 
   render() {
     const selectedCell = this.props.popup;
-    console.log("USD" + selectedCell.popupConfig.country);
-    console.log(
-      this.props.currencyRates.quotes["USD" + selectedCell.popupConfig.country]
-    );
     const adminRates = this.props.admin.rates;
     const commissionAmount = Math.ceil(
       Math.max(
@@ -74,7 +71,8 @@ class CurrencyPopup extends React.Component {
       2
     );
     const subtotal =
-      selectedCell.amountUsd * selectedCell.popupConfig.exchangeRate;
+      selectedCell.amountUsd *
+      this.props.currencyRates.quotes["USD" + selectedCell.popupConfig.country];
     const popupHeader =
       selectedCell.popupConfig.transactionType.charAt(0).toUpperCase() +
       selectedCell.popupConfig.transactionType.substring(
@@ -122,11 +120,9 @@ class CurrencyPopup extends React.Component {
             Exchange Rate
           </Label>
           <Label sm={4}>
-            {
-              this.props.currencyRates.quotes[
-                "USD" + selectedCell.popupConfig.country
-              ]
-            }
+            {this.props.currencyRates.quotes[
+              "USD" + selectedCell.popupConfig.country
+            ].toFixed(4)}
           </Label>
         </FormGroup>
         <FormGroup row>

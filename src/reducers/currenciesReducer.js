@@ -9,7 +9,8 @@ export default function({ ...state }, action) {
       if (result === true) {
         for (let prop in action.payload.quotes) {
           action.payload.quotes[prop] =
-            action.payload.quotes[prop] * (Math.random() * (1.02 - 0.98) + 0.98);
+            action.payload.quotes[prop] *
+            (Math.random() * (1.02 - 0.98) + 0.98);
         }
       }
       console.log("after", action.payload);

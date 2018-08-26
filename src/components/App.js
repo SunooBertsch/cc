@@ -7,12 +7,7 @@ import * as actions from "../actions";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
-  componentDidMount() {
-    this.props.getValues();
-    this.timer = setInterval(() => {
-      this.props.getValues();
-    }, 6000);
-  }
+  
   render() {
     return (
       <div>
@@ -37,4 +32,4 @@ function mapStateToProps({ admin }) {
   return { admin };
 }
 
-export default connect(null, actions)(App);
+export default connect(mapStateToProps, actions)(App);

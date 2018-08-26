@@ -4,24 +4,19 @@ import * as actions from "../actions";
 import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
 
 class AdminPanel extends Component {
-  constructor() {
-    super();
-    this.state = {
-      commissionPct: this.props ? this.props.admin.rates.commissionPct : 0,
-      surcharge: this.props ? this.props.admin.rates.surcharge : 0,
-      margin: this.props ? this.props.admin.rates.margin : 0,
-      minimalCommission: this.props
-        ? this.props.admin.rates.minimalCommission
-        : 0
-    };
+  constructor(props) {
+    super(props);
+    this.state = this.props.admin ? this.props.admin.rates : {};
   }
   render() {
+    console.log(this.state);
     const rates = this.props.admin.rates;
     return (
       <Form
         style={{ margin: "20px" }}
         onSubmit={e => {
           e.preventDefault();
+          console.log("state", this.state);
           this.props.updateRates(this.state);
           e.target.reset();
         }}>
@@ -34,9 +29,9 @@ class AdminPanel extends Component {
               type="number"
               name="refreshRate"
               id="refreshRate"
-              placeholder={rates.surcharge}
+              placeholder={rates.refreshRate}
               onChange={e =>
-                this.setState({ surcharge: parseInt(e.target.value, 10) })
+                this.setState({ refreshRate: parseInt(e.target.value, 10) })
               }
             />
           </Col>

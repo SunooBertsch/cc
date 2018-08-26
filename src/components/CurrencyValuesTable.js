@@ -11,7 +11,12 @@ class CurrencyValues extends Component {
     this.createTable = this.createTable.bind(this);
     this.togglePopup = this.togglePopup.bind(this);
   }
-
+  componentDidMount() {
+    this.props.getValues();
+    this.timer = setInterval(() => {
+      this.props.getValues();
+    }, this.props.admin.rates.refreshRate * 1000);
+  }
   togglePopup(id, type, country, exchangeRate) {
     const data = {
       popupOpen: true,
@@ -66,10 +71,10 @@ class CurrencyValues extends Component {
       : "";
     return (
       <div className="container">
-        <Badge>
+        <h6>
           Exchange rates shows as per {timestamp}. You have{" "}
           {this.props.inventory["USD"].toFixed(2)} USD left
-        </Badge>
+        </h6>
         <div className="row">
           <Table bordered>
             <thead>
