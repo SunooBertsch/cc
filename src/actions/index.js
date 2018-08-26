@@ -60,8 +60,12 @@ export const updateInventory = data => async dispatch => {
   inventory[data.country] = updatedCurrencyValue;
   inventory["USD"] =
     data.transactionType === "sell"
-      ? parseFloat(inventory["USD"]) + parseFloat(data.subtotal)
-      : parseFloat(inventory["USD"]) - parseFloat(data.subtotal);
+      ? parseFloat(inventory["USD"]) +
+        parseFloat(data.subtotal) +
+        parseFloat(data.commission)
+      : parseFloat(inventory["USD"]) -
+        parseFloat(data.subtotal) +
+        parseFloat(data.commission);
   dispatch({
     type: UPDATE_INVENTORY,
     payload: inventory
