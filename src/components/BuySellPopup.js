@@ -61,9 +61,12 @@ class CurrencyPopup extends React.Component {
   render() {
     const selectedCell = this.props.popup;
     const adminRates = this.props.admin.rates;
+    const amountUsd = selectedCell.popupConfig.exchangeRate *
+      this.state.amount
     const commissionAmount = Math.ceil(
       Math.max(
-        selectedCell.amountUsd * adminRates.commissionPct +
+        amountUsd *
+          adminRates.commissionPct +
           adminRates.surcharge,
         adminRates.minimalCommission
       ),
