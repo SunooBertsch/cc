@@ -9,7 +9,7 @@ export const UPDATE_INVENTORY = "UPDATE_INVENTORY";
 
 export const getValues = () => async dispatch => {
   const res = await axios.get(
-    "https://apilayer.net/api/live?access_key=b47d252d44af208794aafe0c9bb50aec"
+    "http://apilayer.net/api/live?access_key=b47d252d44af208794aafe0c9bb50aec"
   );
   const timestamp = Number(new Date());
   const date = new Date(timestamp);
