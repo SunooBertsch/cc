@@ -38,7 +38,9 @@ export default class Header extends Component {
                 </Link>
               </NavItem>
               <NavItem>
-                <Link className="nav-link" to="/admin">Admin</Link>
+                <Link className="nav-link" to="/admin">
+                  Admin
+                </Link>
               </NavItem>
             </Nav>
           </Collapse>
