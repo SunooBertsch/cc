@@ -11,12 +11,18 @@ class CurrencyValues extends Component {
     this.createTable = this.createTable.bind(this);
     this.togglePopup = this.togglePopup.bind(this);
   }
+
   componentDidMount() {
     this.props.getValues();
     this.timer = setInterval(() => {
       this.props.getValues();
     }, this.props.admin.rates.refreshRate * 1000);
   }
+
+  componentWillUnmount(){
+    clearInterval(this.timer)
+  }
+
   togglePopup(id, type, country, exchangeRate) {
     const data = {
       popupOpen: true,

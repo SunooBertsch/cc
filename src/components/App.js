@@ -7,7 +7,6 @@ import * as actions from "../actions";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
-  
   render() {
     return (
       <div>

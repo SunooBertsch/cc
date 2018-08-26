@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
-import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Col,
+  InputGroup,
+  InputGroupText,
+  InputGroupAddon
+} from "reactstrap";
 
 class AdminPanel extends Component {
   constructor(props) {
@@ -20,23 +30,22 @@ class AdminPanel extends Component {
           this.props.updateRates(this.state);
           e.target.reset();
         }}>
-        <FormGroup row>
-          <Label for="refreshRate" sm={2}>
+        <InputGroup row>
+          <Label for="refreshRate" sm={4}>
             Refresh currency exchange rates every
           </Label>
-          <Col sm={2}>
-            <Input
-              type="number"
-              name="refreshRate"
-              id="refreshRate"
-              placeholder={rates.refreshRate}
-              onChange={e =>
-                this.setState({ refreshRate: parseInt(e.target.value, 10) })
-              }
-            />
-          </Col>
-          <Label sm={2}> seconds</Label>
-        </FormGroup>
+          <Input
+            type="number"
+            id="refreshRate"
+            placeholder={rates.refreshRate}
+            onChange={e =>
+              this.setState({ refreshRate: parseInt(e.target.value, 10) })
+            }
+          />
+          <InputGroupAddon addonType="append">
+            <InputGroupText>seconds</InputGroupText>
+          </InputGroupAddon>
+        </InputGroup>
         <FormGroup row>
           <Label for="commission" sm={2}>
             Commission:
