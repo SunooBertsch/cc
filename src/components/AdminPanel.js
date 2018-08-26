@@ -39,7 +39,7 @@ class AdminPanel extends Component {
                 id="refreshRate"
                 placeholder={rates.refreshRate}
                 onChange={e =>
-                  this.setState({ refreshRate: parseInt(e.target.value, 10) })
+                  this.setState({ refreshRate: Math.abs(parseInt(e.target.value, 10)) })
                 }
               />
               <Label sm={2}> seconds </Label>
