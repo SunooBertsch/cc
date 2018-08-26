@@ -18,6 +18,13 @@ class CurrencyPopup extends React.Component {
     const subtotal =
       selectedCell.amountUsd *
       this.props.currencyRates.quotes["USD" + selectedCell.popupConfig.country];
+    const data = {
+      amount: this.state.amount,
+      country: selectedCell.popupConfig.country,
+      currentInventory: this.props.inventory,
+      transactionType: selectedCell.popupConfig.transactionType,
+      subtotal: subtotal.toFixed(2)
+    };
     if (
       selectedCell.popupConfig.transactionType === "buy" &&
       subtotal > this.props.inventory.USD
@@ -27,13 +34,7 @@ class CurrencyPopup extends React.Component {
       selectedCell.popupConfig.transactionType === "buy" &&
       subtotal <= this.props.inventory.USD
     ) {
-      this.props.updateInventory({
-        amount: this.state.amount,
-        country: selectedCell.popupConfig.country,
-        currentInventory: this.props.inventory,
-        transactionType: selectedCell.popupConfig.transactionType,
-        subtotal: subtotal.toFixed(2)
-      });
+      this.props.updateInventory(data);
     }
 
     if (
@@ -48,26 +49,17 @@ class CurrencyPopup extends React.Component {
       this.state.amount <=
         this.props.inventory[selectedCell.popupConfig.country]
     ) {
-      this.props.updateInventory({
-        amount: this.state.amount,
-        country: selectedCell.popupConfig.country,
-        currentInventory: this.props.inventory,
-        transactionType: selectedCell.popupConfig.transactionType,
-        subtotal: subtotal.toFixed(2)
-      });
+      this.props.updateInventory(data);
     }
   }
 
   render() {
     const selectedCell = this.props.popup;
     const adminRates = this.props.admin.rates;
-    const amountUsd = selectedCell.popupConfig.exchangeRate *
-      this.state.amount
+    const amountUsd = selectedCell.popupConfig.exchangeRate * this.state.amount;
     const commissionAmount = Math.ceil(
       Math.max(
-        amountUsd *
-          adminRates.commissionPct +
-          adminRates.surcharge,
+        amountUsd * adminRates.commissionPct + adminRates.surcharge,
         adminRates.minimalCommission
       ),
       2
