@@ -1,8 +1,8 @@
 module.exports = {
   rates: {
-    commissionPct: 0.01,
-    surcharge: 1,
-    minimalCommission: 1,
+    commissionPct: 0.02,
+    surcharge: 3,
+    minimalCommission: 10,
     margin: 0.01,
     refreshRate: 6
   },

@@ -11,12 +11,7 @@ class App extends Component {
     return (
       <div>
         <Router>
-          <div
-            style={{
-              backgroundImage:
-                "linear-gradient(to bottom right, #FFEF03, white)",
-              height: "100px"
-            }}>
+          <div>
             <Header />
             <Route exact path="/" component={CurrencyValuesTable} />
             <Route path="/admin" component={AdminPanel} />

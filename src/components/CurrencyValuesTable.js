@@ -19,8 +19,8 @@ class CurrencyValues extends Component {
     }, this.props.admin.rates.refreshRate * 1000);
   }
 
-  componentWillUnmount(){
-    clearInterval(this.timer)
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   togglePopup(id, type, country, exchangeRate) {
@@ -77,7 +77,7 @@ class CurrencyValues extends Component {
       : "";
     return (
       <div className="container">
-        <h6>
+        <h6 style={{ textAlign: "center" }}>
           Exchange rates shows as per {timestamp}. You have{" "}
           {this.props.inventory["USD"].toFixed(2)} USD left
         </h6>

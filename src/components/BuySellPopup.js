@@ -48,7 +48,6 @@ class CurrencyPopup extends React.Component {
       this.state.amount <=
         this.props.inventory[selectedCell.popupConfig.country]
     ) {
-      console.log("sold");
       this.props.updateInventory({
         amount: this.state.amount,
         country: selectedCell.popupConfig.country,
