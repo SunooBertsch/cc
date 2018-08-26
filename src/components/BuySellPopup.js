@@ -13,7 +13,7 @@ class CurrencyPopup extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit() {
+  handleSubmit(commission) {
     const selectedCell = this.props.popup;
     const subtotal =
       selectedCell.amountUsd *
@@ -23,7 +23,8 @@ class CurrencyPopup extends React.Component {
       country: selectedCell.popupConfig.country,
       currentInventory: this.props.inventory,
       transactionType: selectedCell.popupConfig.transactionType,
-      subtotal: subtotal.toFixed(2)
+      subtotal: subtotal.toFixed(2),
+      commission
     };
     if (
       selectedCell.popupConfig.transactionType === "buy" &&
@@ -87,7 +88,7 @@ class CurrencyPopup extends React.Component {
         className="col-sm-6"
         onSubmit={e => {
           e.preventDefault();
-          this.handleSubmit();
+          this.handleSubmit(commissionAmount);
         }}>
         <FormGroup row>
           <h4 xs={6}>{popupHeader}</h4>
