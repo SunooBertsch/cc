@@ -33,14 +33,10 @@ export default class Header extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink>
-                  <Link to="/">Home</Link>
-                </NavLink>
+                <Link to="/">Home</Link>
               </NavItem>
               <NavItem>
-                <NavLink>
-                  <Link to="/admin">Admin</Link>
-                </NavLink>
+                <Link to="/admin">Admin</Link>
               </NavItem>
             </Nav>
           </Collapse>
